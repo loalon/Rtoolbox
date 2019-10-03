@@ -104,7 +104,7 @@ getClusters <- function(df, level='Level1', numberOfClusters=30) {
 enrichClusters <- function(clusterList, 
                            task = list('go', 'pfam', 'kegg', 'mapman'), 
                            background=NULL, url='pabies',alpha= 0.05){
-  source('~/Git/UPSCb/src/R/gopher.R')
+  source_url("https://raw.githubusercontent.com/UPSCb/UPSCb-common/master/src/R/gopher.R")
   enr <- lapply(clusterList, function(x) {
     print(length(x))
     if(length(x) > 1)
