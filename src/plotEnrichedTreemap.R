@@ -91,19 +91,18 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
     if(de=='down') {
       palette = "GnBu"
     }
-  } 
-  ##TODO this has to go somewhere else in order to get different colors for 3 namesacpe treemap
-  else {
-  palette <- colorRampPalette(c("white", clusterColor))
-  palette <- palette(10)
-  vColor = c("size")
-  type = "value"
+  } else if (enrichment != 'go' && namespace != 'none') {
+    palette <- colorRampPalette(c("white", clusterColor))
+    palette <- palette(10)
+    vColor = c("size")
+    type = "value"
   }
     
 
-  
+  # calculate the size based on padj
   x[[enrichment]]$size <- abs(log10(x[[enrichment]]$padj))
   
+  # generate treemap
   treemap(x[[enrichment]], 
           index = index,
           vSize = ('size'), 
