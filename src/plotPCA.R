@@ -1,4 +1,5 @@
 plotPCA = function(object, meta, intgroup="condition", returnData=FALSE) {
+  require(ggplot2)
   # calculate the variance for each gene
   #rv <- rowVars(assay(object))
   
