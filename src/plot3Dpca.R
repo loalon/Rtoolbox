@@ -90,11 +90,11 @@ plot3Dpca <- function(data, meta, group, title="", colors = c(), inverse=c(FALSE
 }
 
 
-metaDF <- data.frame(Week=(substr(rownames(combinedData),2,3)), 
-                     Treatment=substr(rownames(combinedData),5,5))
+# metaDF <- data.frame(Week=(substr(rownames(combinedData),2,3)), 
+                     # Treatment=substr(rownames(combinedData),5,5))
 
-plot3Dpca(combinedData, metaDF, c('Treatment', 'Week'), title="Treatment-week interaction", inverse = c(T,F,F)) #,c("#F8766D", "#00BFC4", "#56B4E9") )
+# plot3Dpca(combinedData, metaDF, c('Treatment', 'Week'), title="Treatment-week interaction", inverse = c(T,F,F)) #,c("#F8766D", "#00BFC4", "#56B4E9") )
 
-temp$group <- apply( temp[ , names(temp) ] , 1 , paste , collapse = "-" )
+# temp$group <- apply( temp[ , names(temp) ] , 1 , paste , collapse = "-" )
 
 
