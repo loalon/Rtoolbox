@@ -91,7 +91,7 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
     if(de=='down') {
       palette = "GnBu"
     }
-  } else if (enrichment != 'go' && namespace != 'none') {
+  } else if (enrichment != 'go') {
     palette <- colorRampPalette(c("white", clusterColor))
     palette <- palette(10)
     vColor = c("size")

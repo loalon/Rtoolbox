@@ -90,20 +90,20 @@ plotUpAndDown <- function(x, xlabel="Comparitions", ylabel="Number of genes",
   lapply(1:length(x), function(de){
     
     thisName <- names(x[de])
-    print(thisName)
+    #print(thisName)
     upGenes <- rownames(x[[de]][x[[de]]$log2FoldChange>0,])
     downGenes <- rownames(x[[de]][x[[de]]$log2FoldChange<0,])
     #commonUp <- intersect(prevUp, upGenes)
     #commonDown <- intersect(prevDown, downGenes)
     upCounts <- ifelse(inverse, length(downGenes), length(upGenes))
     downCounts <- ifelse(inverse, -1*length(upGenes), -1*length(downGenes))
-		print(upCounts)
-		print(downCounts)
+		#print(upCounts)
+		#print(downCounts)
     myDF <<- rbind(myDF, data.frame(time=thisName, counts=upCounts, class=upName))
     myDF <<- rbind(myDF, data.frame(time=thisName, counts=downCounts, class=downName))
     #myDF <<- rbind(myDF, c(thisName, length(downGenes), 'down'))
     #names(myDF) <- c("time", "counts", "class")
-    #print(myDF)
+    print(myDF)
   })
   
   #genes <- controlDE$W34$log2FoldChange
@@ -114,12 +114,14 @@ plotUpAndDown <- function(x, xlabel="Comparitions", ylabel="Number of genes",
   #myDF <- rbind(myDF, c('W34', length(upGenes), -1*length(downGenes)))
   
   names(myDF) <- c("time", "counts", "class")
+  thisColors <- c(upColor, downColor)
+  names(thisColors) <- c(upName, downName)
 
   ggplot(data=myDF, aes(x=time, y=counts, fill=class)) +
     geom_bar(stat="identity") + 
     theme(axis.text.x = element_text(angle = 90, hjust = 1))+
     xlab(xlabel) + ylab(ylabel) +
-    scale_fill_manual(values=c(upColor, downColor))
+    scale_fill_manual(values=thisColors)
 }
 
 

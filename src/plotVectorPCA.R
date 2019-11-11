@@ -56,7 +56,7 @@ plotVectorPCA <- function(data, meta, group, title="Principal Component Vector A
   ggplot(df, aes(x = xstart, xend = xend, 
                  y = ystart, yend = yend, col = secondaryCondition)) +
     geom_segment(arrow = arrow(length = unit(0.5, "cm")), size = 2) + 
-    #labs(color = timeUnits) +
+    labs(color = group[2]) +
     theme_bw() + theme(text = element_text(size = 20)) + 
     xlab(paste("PC1 (",percents[1],"%)",sep="")) + 
     ylab(paste("PC2 (",percents[2],"%)",sep="")) + 

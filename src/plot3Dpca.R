@@ -48,15 +48,30 @@ plot3Dpca <- function(data, meta, group, title="", colors = c(), inverse=c(FALSE
   percents <- round(summary(pca)$importance[2,]*100)
   
   # Create data frame
-  df3D <- data.frame(meta)
-  
+  # df3D <- meta[,group]
+  # groupNames <- colnames(df3D)
+  # print(df3D)
   # Add desired metadata
-  if(length(group) == 1) {
-    df3D$group <- meta[,group]
-  } else {
-    df3D$group <- apply( df3D[ , group ] , 1 , paste , collapse = "-" )  
-  }
+  # if(length(group) > 2) {
+  #  
+  #   df3D <- as.data.frame(lapply(df3D, as.character))
+  #   colnames(df3D) <- groupNames
+  # 
+  # } #else {
 
+  #}
+  # Create data frame
+  df3D <- data.frame(meta[,group, drop=F])
+  groupNames <- colnames(df3D)
+  # Add desired metadata
+  # if(length(group) == 1) {
+  #   df3D$group <- meta[,group]
+  # } else {
+   if(length(group) > 1)
+    df3D$group <- apply( df3D[ , group ] , 1 , paste , collapse = "-" )  
+  # }
+  #groupNames <- colnames(df3D)
+  
   # Add pca data
   df3D$PC1 <- pca$x[,1]
   df3D$PC2 <- pca$x[,2]
@@ -71,12 +86,14 @@ plot3Dpca <- function(data, meta, group, title="", colors = c(), inverse=c(FALSE
 
   # Extract group names to tag the samples
   groupName <- paste(group, collapse="-")
-  
+  print(colors)
   # Create plot object 
   p <- plot_ly(df3D, x = ~PC1, y = ~PC3, z = ~PC2,
-               color = ~group, 
-               colors=colors,
-               text = ~paste(groupName, ":", group) ) %>%
+               color = df3D[[groupNames[1]]],
+               symbol = df3D[[groupNames[2]]],
+               symbols= c("circle","square","diamonds","cross","x"),
+               text = ~paste(groupName, ":", group) ,
+  colors=colors  ) %>%
     add_markers() %>%
     layout(title = title,
            scene = list(xaxis = list(title = paste("PC1 (",percents[1],"%)",sep="")),
@@ -85,11 +102,32 @@ plot3Dpca <- function(data, meta, group, title="", colors = c(), inverse=c(FALSE
                         )
            )
   
+  ##TODO fix legend
+  
+  # p <- plot_ly(df3D,symbols= c("circle","square","diamonds","cross","x"),colors=colors) %>%
+  #   # add_markers(
+  #   #   x = ~PC1, 
+  #   #   y = ~PC3,
+  #   #   z = ~PC2,
+  #   #   text = ~paste(groupNames[[1]], ":", df3D[[groupNames[1]]]),
+  #   #   )%>%
+
+  #   add_markers(
+  #             x = ~PC1, 
+  #             y = ~PC3,
+  #             z = ~PC2,
+  #             text = ~paste(groupNames[[2]], ":", df3D[[groupNames[2]]]),
+  #             color = df3D[[groupNames[1]]],
+  #             symbol = df3D[[groupNames[2]]]) 
+
+
   # Return plot
   return(p)
 }
 
+#plot3Dpca(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), c("Treatment"), colors=getColors(19))
 
+#plot3Dpca(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), c("Week", "Treatment"), colors=getColors(19))
 # metaDF <- data.frame(Week=(substr(rownames(combinedData),2,3)), 
                      # Treatment=substr(rownames(combinedData),5,5))
 
