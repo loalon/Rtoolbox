@@ -41,6 +41,8 @@ plotUpAndDown <- function(x, xlabel="Comparitions", ylabel="Number of genes",
   
   ggplot(data=myDF, aes(x=time, y=counts, fill=class)) +
     geom_bar(stat="identity") + 
+    geom_text(aes(label=abs(counts)),size = 3, position = position_stack(vjust = 0.5))+
+    #geom_text(aes(label=abs(counts)), vjust=-0.3, color="black", size=3.5) + #y=cumsum((counts))  ,
     theme(axis.text.x = element_text(angle = 90, hjust = 1))+
     xlab(xlabel) + ylab(ylabel) +
     scale_fill_manual(values=thisColors) + 
