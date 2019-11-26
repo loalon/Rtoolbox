@@ -14,9 +14,11 @@
 #' @examples t <- getFDN(edgeList, c("MA_104203g0010","MA_86195g0010"))
 #' write.table(t, file="myFile.tsv", sep='\t', row.names = F, quote = F)
 getFDN <- function(edgeList, genes) {
+  # TODO check for data type
+  # TODO check that all genes are in the edgelist
   res <- lapply(genes, function(gene){
-    s2t <- edgeList[edgeList[1] == gene,][[2]]
-    t2s <- edgeList[edgeList[2] == gene,][[1]]
+    s2t <- edgeList[edgeList[1] == gene,][2]
+    t2s <- edgeList[edgeList[2] == gene,][1]
     union(s2t,t2s)
   })
   names(res) <- genes
