@@ -19,9 +19,14 @@ getFDN <- function(edgeList, genes) {
   res <- lapply(genes, function(gene){
     s2t <- edgeList[edgeList[1] == gene,][2]
     t2s <- edgeList[edgeList[2] == gene,][1]
-    union(s2t,t2s)
+     union(s2t,t2s)
+    
   })
   names(res) <- genes
   res <- setNames(unlist(res, use.names=F),rep(names(res), lengths(res)))
   myRes <- data.frame(FDN=res, GOI=names(res))
 }
+
+#toydata
+# edgeList <- read.table("toydata/controlEdgeList.tsv", header=T, sep='\t')
+# bla <- getFDN(edgeList, "C1C_4")
