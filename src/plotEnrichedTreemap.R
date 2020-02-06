@@ -5,7 +5,7 @@ clusterTreemapColors <- rep(c("#9E1F63","#662D91","#2B3990","#1B75BC","#27AAE1",
 clusterTreemapText <- rep(c("white","white","white","white","white",
                         "white","white","white","white","white",
                         "black","black","white","white","white"),5)
-plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam', 'ko_pathway', 'ko'), 
+plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam', 'ko_pathway', 'ko', 'kog','cog'), 
                                 namespace = c('BP','MF','CC', 'none'), title = "", de = "none", 
                                 clusterColor = "#9E1F63", clusterText='black') {
   

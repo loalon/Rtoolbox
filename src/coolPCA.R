@@ -168,14 +168,14 @@ coolPCA <- function(data, meta, group, title="", colors = c(), inverse=c(FALSE,F
   return(p)
 }
 
-coolPCA(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), 
-        c("Week", "Treatment"), type='2D', colors=getColors(19))
-
-coolPCA(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), 
-        c("Week"), type='2D')
-
-coolPCA(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), 
-        c("Treatment"), type='2D')
+# coolPCA(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), 
+#         c("Week", "Treatment"), type='2D', colors=getColors(19))
+# 
+# coolPCA(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), 
+#         c("Week"), type='2D')
+# 
+# coolPCA(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), 
+#         c("Treatment"), type='2D')
 
 #plot3Dpca(fullData$expData$combined, mutate_all(fullData$meta$combined, as.character), c("Week", "Treatment"), colors=getColors(19))
 # metaDF <- data.frame(Week=(substr(rownames(combinedData),2,3)), 
