@@ -1,10 +1,10 @@
 
 clusterTreemapColors <- rep(c("#9E1F63","#662D91","#2B3990","#1B75BC","#27AAE1",
                           "#2AB592","#035E31","#009444","#65BC46","#A5CE42",
-                          "#F9ED32","#FBB040","#F15A29","#EF4136","#BE1E2D"),5)
+                          "#F9ED32","#FBB040","#F15A29","#EF4136","#BE1E2D"),15)
 clusterTreemapText <- rep(c("white","white","white","white","white",
                         "white","white","white","white","white",
-                        "black","black","white","white","white"),5)
+                        "black","black","white","white","white"),15)
 plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam', 'ko_pathway', 'ko', 'kog','cog'), 
                                 namespace = c('BP','MF','CC', 'none'), title = "", de = "none", 
                                 clusterColor = "#9E1F63", clusterText='black') {
@@ -72,14 +72,26 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
     #printenr$ko_pathway
     #enr$ko_pathway$name
     } else if(enrichment =='ko') {
-   
+      #temp fix until enrichment is fixed
+      x[[enrichment]] <- filter(x[[enrichment]], def !='UNKNOWN')
 			if(length(rownames(x[[enrichment]]))>100){ #there is a limit of keggLink querys
 				x[[enrichment]] <- x[[enrichment]][1:100,]
 			}
 			x[[enrichment]]$name <- keggList(x[[enrichment]]$name)
 			#print(x[[enrichment]])
-    
-    }
+    # temporary fix
+    } 
+  # else if(enrichment =='cog') {
+  #     tempName <- x[[enrichment]]$name 
+  #     tempDef <- x[[enrichment]]$def
+  #     x[[enrichment]]$def <- tempName 
+  #     x[[enrichment]]$name  <- tempDef
+  #   } else if(enrichment =='kog') {
+  #     tempName <- x[[enrichment]]$name 
+  #     tempDef <- x[[enrichment]]$def
+  #     x[[enrichment]]$def <- tempName 
+  #     x[[enrichment]]$name  <- tempDef
+  #   }
   
   if(de !='none') {
     position.legend = "none"
