@@ -19,7 +19,10 @@
 #' @examples plotVectorPCA(pca, weeks, treatment, "myResults")
 #' 
 
-plotVectorPCA <- function(data, meta, group, title="Principal Component Vector Analysis ", colors = c()) {
+plotVectorPCA <- function(data, meta, group, 
+                          title="Principal Component Vector Analysis ", 
+                          colorMap = c(),
+                          linetype="solid") {
 
   # plotVectorPCA <- function(pcadata, timeVector, 
   #                         conditionVector, title="", timeUnits="Weeks") {
@@ -55,8 +58,9 @@ plotVectorPCA <- function(data, meta, group, title="Principal Component Vector A
   
   ggplot(df, aes(x = xstart, xend = xend, 
                  y = ystart, yend = yend, col = secondaryCondition)) +
-    geom_segment(arrow = arrow(length = unit(0.5, "cm")), size = 2) + 
+    geom_segment(arrow = arrow(length = unit(0.5, "cm")), size = 2, linetype=linetype) + 
     labs(color = group[2]) +
+    scale_color_manual(values=colorMap) + 
     theme_bw() + theme(text = element_text(size = 20)) + 
     xlab(paste("PC1 (",percents[1],"%)",sep="")) + 
     ylab(paste("PC2 (",percents[2],"%)",sep="")) + 
