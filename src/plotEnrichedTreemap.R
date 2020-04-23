@@ -14,7 +14,7 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
   require(KEGGREST)
   
   #diseases <- read.table("~/Rtoolbox/diseases2ko.txt", header=F)
-  diseases <- read.table(url("https://raw.githubusercontent.com/loalon/Rtoolbox/master/src/diseases2ko.txt"), header=F)
+  diseases <- read.table(url("diseases2ko.txt"), header=F)
 
   diseases <- as.character(diseases$V1)
   
