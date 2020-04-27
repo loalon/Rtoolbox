@@ -100,7 +100,7 @@ plotInteractivePCA <- function(data, meta, group, model= c("2D", "3D"), title=""
             symbol = df3D[[groupNames[2]]],
             symbols = c("circle","square","cross","x"),
             text = ~paste(groupName, ":", group),
-            marker = list(size= 20, opacity = 0.9, sizemode = 'diameter')
+            marker = list(size= 10, opacity = 0.9, sizemode = 'diameter')
     ) %>%
       add_markers() %>%
       layout(title = title,
