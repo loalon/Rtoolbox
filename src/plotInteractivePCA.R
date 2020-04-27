@@ -12,18 +12,18 @@
 #'
 #' @examples 
 #' Get the result and store it in an object
-#' x <- plotInteracticePCA(combinedData, metaDF, c('Treatment', 'Week'), title="Treatment-week interaction")
+#' x <- plotInteractivePCA(combinedData, metaDF, c('Treatment', 'Week'), title="Treatment-week interaction")
 #' 
 #' direct plot with custom color
-#' plotInteracticePCA(combinedData, metaDF, c('Treatment'), title="Treatment", colors = c("#F8766D", "#00BFC4", "#56B4E9"))
+#' plotInteractivePCA(combinedData, metaDF, c('Treatment'), title="Treatment", colors = c("#F8766D", "#00BFC4", "#56B4E9"))
 #' 
 #' reverse PC1
-#' plotInteracticePCA(combinedData, metaDF, c('Treatment', 'Week'), title="Treatment-week interaction", inverse = c(T,F,F))
+#' plotInteractivePCA(combinedData, metaDF, c('Treatment', 'Week'), title="Treatment-week interaction", inverse = c(T,F,F))
 #' 
 #' 3D version
-#' plotInteracticePCA(combinedData, metaDF, c('Treatment', 'Week'), title="Treatment-week interaction", inverse = c(T,F,F), model="3D")
+#' plotInteractivePCA(combinedData, metaDF, c('Treatment', 'Week'), title="Treatment-week interaction", inverse = c(T,F,F), model="3D")
 
-plotInteracticePCA <- function(data, meta, group, model= c("2D", "3D"), title="", colors = c(),  inverse=c(FALSE,FALSE,FALSE)) {
+plotInteractivePCA <- function(data, meta, group, model= c("2D", "3D"), title="", colors = c(),  inverse=c(FALSE,FALSE,FALSE)) {
   
   require(plotly)
   require(RColorBrewer)
@@ -133,11 +133,11 @@ plotInteracticePCA <- function(data, meta, group, model= c("2D", "3D"), title=""
 
 plotInteracticePCA_test <- function() {
   load("toydata/combinedData.RData")
-  plotInteracticePCA(as.matrix(combinedData), metaDF, c('Treatment', 'Week'), title="Treatment-week interaction", inverse = c(T,F,F)) #,c("#F8766D", "#00BFC4", "#56B4E9") )
-  plotInteracticePCA(as.matrix(combinedData), metaDF, c( 'Week', 'Treatment'), title="Treatment-week interaction", inverse = c(T,F,F), model="3D") #,c("#F8766D", "#00BFC4", "#56B4E9") )
-  plotInteracticePCA(as.matrix(combinedData), metaDF, c('Treatment'), title="Treatment-week interaction", inverse = c(T,F,F),colors=c("#F8766D", "#00BFC4", "#56B4E9") )
-  plotInteracticePCA(as.matrix(combinedData), metaDF, c('Treatment'), title="Treatment-week interaction", inverse = c(T,F,F))
-  plotInteracticePCA(as.matrix(combinedData), metaDF, c('Treatment'), title="Treatment-week interaction", inverse = c(T,F,F), model="3D")
+  plotInteractivePCA(as.matrix(combinedData), metaDF, c('Treatment', 'Week'), title="Treatment-week interaction", inverse = c(T,F,F)) #,c("#F8766D", "#00BFC4", "#56B4E9") )
+  plotInteractivePCA(as.matrix(combinedData), metaDF, c( 'Week', 'Treatment'), title="Treatment-week interaction", inverse = c(T,F,F), model="3D") #,c("#F8766D", "#00BFC4", "#56B4E9") )
+  plotInteractivePCA(as.matrix(combinedData), metaDF, c('Treatment'), title="Treatment-week interaction", inverse = c(T,F,F),colors=c("#F8766D", "#00BFC4", "#56B4E9") )
+  plotInteractivePCA(as.matrix(combinedData), metaDF, c('Treatment'), title="Treatment-week interaction", inverse = c(T,F,F))
+  plotInteractivePCA(as.matrix(combinedData), metaDF, c('Treatment'), title="Treatment-week interaction", inverse = c(T,F,F), model="3D")
 }
 
 
