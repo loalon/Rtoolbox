@@ -1,54 +1,53 @@
-# prepareData <- function(df) {
-#   #calculate the number of levels, total columns -3 info columns -1 path column
-#   totalCols <- length(colnames(df))
-#   numberLevels <- length(colnames(df)) - 4
-#   
-#   #always a first level is going to be there
-#   df$Level1 <- df[2]
-#   
-#   levels <- sapply(2:numberOfCols, function(x){
-#     paste0("Level", x)
-#   })
-#   
-#   for (level in 2:numberLevels) {
-#     print(level)
-#     name <- paste0("Level",level)
-#     lastCol <- length(colnames(df))
-#     
-#     df[lastCol+1] <- paste0(df[lastCol], ":", df[level+1])
-#     
-#     #df[[level]]
-#   }
-#   return (df)
-#   
-# }
 
-prepareData <- function(df) {
-  #calculate the number of levels, total columns -3 info columns -1 path column
-  totalCols <- length(colnames(df))
+
+#' Title
+#'
+#' @param df 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+prepareInfomapTable <- function(df) {
+  
+  require(data.table)
+  # calculate the number of levels, total columns -3 info columns -1 path column
   numberLevels <- length(colnames(df)) - 4
   
-  #always a first level is going to be there
-  #df$Level1 <- df[2]
-  
+  # create names for the levels
   levels <- sapply(1:numberLevels, function(x){
-    paste0("P", x)
+    paste0("Level", x)
   })
   
-  daNames <- c('path', levels, 'number', 'index', 'gene')
-  colnames(df) <- daNames
-  # for (level in 2:numberLevels) {
-  #   print(level)
-  #   name <- paste0("Level",level)
-  #   lastCol <- length(colnames(df))
-  #   
-  #   df[lastCol+1] <- paste0(df[lastCol], ":", df[level+1])
-  #   
-  #   #df[[level]]
-  # }
-  return (df)
+  # add the names to the data frame
+  colnames(df) <- c('Path', levels, 'Flow', 'Index', 'Gene')
+  
+  # create a new results data frame
+  res <- data.frame(Gene = df[,length(colnames(df))],
+                    Path= df[,1],
+                    stringsAsFactors = F)
+  
+  
+  # Data always have level 1 and none of the data is NA
+  res$Level1 <- df[,2]
+
+  # loop though the rest of the levels and attach the name from the previous ones
+  for (level in 2:numberLevels) {
+   
+    currentLevel <- paste0("Level",level)
+    prevLevel <- paste0("Level",(level-1))
+    
+    # join names
+    res[[currentLevel]] <- paste0(res[[prevLevel]], ":", df[[currentLevel]])
+    
+    # if there is an NA inside the current name, that gene doesn't belong to a cluster in that level, it turns into NA
+    res[[currentLevel]] <- ifelse(res[[currentLevel]] %like% "NA", NA, res[[currentLevel]])  
+  }
+  return (res)
   
 }
+
+
 
 clusterQA <- function(df, level='Level1') {
   freq1 <- as.data.frame(table(df[level]) )
@@ -188,4 +187,33 @@ enr2tsv <- function(enrList, filePrefix="") {
        write.table(enrList[[x]]$pfam, file=paste0(filePrefix,"_", x, "_pfam",".tsv"), row.names=F, sep='\t', quote = F)
     #   write.xlsx(data.frame(enrList[[x]]$pfam),   file=filename, sheetName="Pfam", append=TRUE, row.names=FALSE)
   }
+}
+
+
+## keep this for compatibility 
+prepareData <- function(df) {
+  #calculate the number of levels, total columns -3 info columns -1 path column
+  totalCols <- length(colnames(df))
+  numberLevels <- length(colnames(df)) - 4
+  
+  #always a first level is going to be there
+  #df$Level1 <- df[2]
+  
+  levels <- sapply(1:numberLevels, function(x){
+    paste0("P", x)
+  })
+  
+  daNames <- c('path', levels, 'number', 'index', 'gene')
+  colnames(df) <- daNames
+  # for (level in 2:numberLevels) {
+  #   print(level)
+  #   name <- paste0("Level",level)
+  #   lastCol <- length(colnames(df))
+  #   
+  #   df[lastCol+1] <- paste0(df[lastCol], ":", df[level+1])
+  #   
+  #   #df[[level]]
+  # }
+  return (df)
+  
 }
