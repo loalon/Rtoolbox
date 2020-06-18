@@ -1,6 +1,6 @@
 ##TODO, explain that this works for a condition vs control, if is reverse, 
 #user needs to inverse=T
-plotUpAndDown <- function(x, xlabel="Comparitions", ylabel="Number of genes", 
+plotUpAndDown <- function(x, xlabel="Comparisons", ylabel="Number of genes", 
                           upName="Up", downName="Down",
                           upColor="#b2182b", downColor="#2166ac", inverse=F) {
   require(ggplot2)

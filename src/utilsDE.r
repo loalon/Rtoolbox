@@ -32,7 +32,7 @@ screePlot <- function(pca, number=10) {
 getRes <- function (num, den, localDDS, group) {
 
   comp <- paste0(num,"vs", den)
-  print(paste("Comparition:", comp))
+  print(paste("Comparison:", comp))
   partialRes <- results(localDDS,
                         contrast= c(group, num ,den),
                         filter = rowMedians(counts(localDDS)),
@@ -71,7 +71,7 @@ filterDE <- function(res, p = 0.01, log2fc = 0.5, genes = "all") {
 
 # ##TODO, explain that this works for a condition vs control, if is reverse, 
 # #user needs to inverse=T
-# plotUpAndDown <- function(x, xlabel="Comparitions", ylabel="Number of genes", 
+# plotUpAndDown <- function(x, xlabel="Comparisons", ylabel="Number of genes", 
 #                           upName="Up", downName="Down",
 #                           upColor="#b2182b", downColor="#2166ac", inverse=F) {
 #   require(ggplot2)
