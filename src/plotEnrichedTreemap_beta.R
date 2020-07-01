@@ -1,10 +1,10 @@
 
 clusterTreemapColors <- rep(c("#9E1F63","#662D91","#2B3990","#1B75BC","#27AAE1",
-                              "#2AB592","#035E31","#009444","#65BC46","#A5CE42",
-                              "#F9ED32","#FBB040","#F15A29","#EF4136","#BE1E2D"),15)
+                          "#2AB592","#035E31","#009444","#65BC46","#A5CE42",
+                          "#F9ED32","#FBB040","#F15A29","#EF4136","#BE1E2D"),15)
 clusterTreemapText <- rep(c("white","white","white","white","white",
-                            "white","white","white","white","white",
-                            "black","black","white","white","white"),15)
+                        "white","white","white","white","white",
+                        "black","black","white","white","white"),15)
 
 plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam', 'ko_pathway', 'ko', 'kog','cog'), 
                                 namespace = c('none', 'BP', 'MF', 'CC'), 
@@ -62,7 +62,7 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
     if(namespace=='none') {
       index = c('namespace', 'name')
       palette = "Set1"
-      
+
       fontcolor.labels=c("#FF000000", "black")
       fontface.labels=c(1, 2)
       fontsize.labels=c(1, 20)
@@ -80,7 +80,7 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
   if(enrichment =='mapman') {
     enrData[[nameCol]] <- gsub("\\."," ",enrData[[nameCol]])
   } 
-  
+
   # Paint it properly if it is up or down regulated
   if(de !='none') {
     if(de=='up') {
@@ -90,7 +90,7 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
       palette = "GnBu"
     }
   } 
-  
+
   # generate treemap
   treemap(enrData, 
           index = index,
@@ -113,3 +113,15 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
           overlap.labels = 1
   )
 }
+
+plotEnrichedTreemap(controlEnr$Cluster1, "go", "BP")
+plotEnrichedTreemap(controlEnr$Cluster1, "go", "BP", legend = F)
+plotEnrichedTreemap(controlEnr$Cluster2, "pfam", "BP")
+plotEnrichedTreemap(controlEnr$Cluster1, "mapman", "BP")
+plotEnrichedTreemap(controlEnr$Cluster1$mapman, "mapman")
+plotEnrichedTreemap(controlEnr$Cluster1$mapman, "mapman", "BP", de="up")
+plotEnrichedTreemap(controlEnr$Cluster1$mapman, "mapman", "none", de="down")
+plotEnrichedTreemap(controlEnr$Cluster1$mapman, "mapman", "BP", de="down")
+plotEnrichedTreemap(controlEnr$Cluster1, "go", "none")
+plotEnrichedTreemap(controlEnr$Cluster2, "go", "none")
+
