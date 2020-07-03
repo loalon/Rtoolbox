@@ -35,9 +35,9 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
   # calculate the size based on padj
   
   enrData$size <- if(convertSize) {
-    abs(log10(enrData[[sizeCol]]))
+    abs(log10(enrData[[colorCol]]))
   } else {
-    enrData[[sizeCol]]
+    enrData[[colorCol]]
   }
   
   #default treemap
@@ -54,6 +54,11 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
   palette <- colorRampPalette(c("white", clusterColor))
   palette <- palette(10)
   vColor = c("size")
+  if (sizeCol=="padj") {
+    vSize = vColor
+  } else {
+    vSize = sizeCol
+  }
   type = "value"
   title.legend="abs(log10(pAdj))"
   bg.labels= 0
@@ -94,7 +99,7 @@ plotEnrichedTreemap <- function(x, enrichment = c('go','mapman', 'kegg', 'pfam',
   # generate treemap
   treemap(enrData, 
           index = index,
-          vSize = ('size'), 
+          vSize = vSize, 
           palette = palette,
           type = type, 
           vColor = vColor,
